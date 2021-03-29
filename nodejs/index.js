@@ -53,19 +53,31 @@ let recursos = {
       buffer=JSON.parse(buffer);
     }
 
+
+    //revisar si tiene subrutas en este caso es el indice del array
+    
+    if (rutaLimpia.indexOf("/") > -1) {
+      var [rutaPrincipal, indice]=rutaLimpia.split('/');
+      
+    }
+
     //Ordenar la data 
     const data = {
-      ruta: rutaLimpia,
+      indice,
+      ruta: rutaPrincipal || rutaLimpia,
       query,
       metodo,
       headers,
       payload: buffer
     };
+
+  
+
     console.log({data});
     //Elegir el manejador dependiendo de la ruta  //(handler) y asignarle función que el enrutador tiene 
     let handler;
-    if(rutaLimpia && enrutador[rutaLimpia] && enrutador[rutaLimpia][metodo]) {
-      handler = enrutador[rutaLimpia][metodo];
+    if(data.ruta && enrutador[data.ruta] && enrutador[data.ruta][metodo]) {
+      handler = enrutador[data.ruta][metodo];
     } else {
       handler = enrutador.noEncontrado;
     }
@@ -90,6 +102,13 @@ const enrutador = {
   },
   mascotas: {
     get: (data, callback) => {
+      if (typeof data.indice !=='undefined') {
+        console.log("handler mascotas", {data});
+        if (recursos.mascotas[data.indice]) {
+          return callback(200, recursos.mascotas[data.indice]);
+        }
+        return callback(404, {mensaje:`Mascota con inidice ${indice} no encontrado`});
+      }
       callback(200, recursos.mascotas);
     },
     post: (data, callback) => {
