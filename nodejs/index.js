@@ -1,9 +1,10 @@
 const http = require('http');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
+const enrutador = require("./enrutador");
 
 
-let recursos = {
+global.recursos = {
   mascotas: [
     {tpo: "Perro", nombre: "Firulais", dueño:"Jhon"},
     {tpo: "Perro", nombre: "Firulais", dueño:"Jhon"},
@@ -96,30 +97,7 @@ let recursos = {
   });
 };
 
-const enrutador = {
-  ruta: (data, callback) => {
-    callback(200, {mensaje: 'Esta es /ruta'});
-  },
-  mascotas: {
-    get: (data, callback) => {
-      if (typeof data.indice !=='undefined') {
-        console.log("handler mascotas", {data});
-        if (recursos.mascotas[data.indice]) {
-          return callback(200, recursos.mascotas[data.indice]);
-        }
-        return callback(404, {mensaje:`Mascota con inidice ${indice} no encontrado`});
-      }
-      callback(200, recursos.mascotas);
-    },
-    post: (data, callback) => {
-      recursos.mascotas.push(data.payload);
-      callback(201, data.payload);
-    },
-  },
-  noEncontrado: (data, callback) => {
-    callback(404, {mensaje: 'No encontrado'});
-  }
-}
+
 
 const server = http.createServer(callbackDelServidor);
 
