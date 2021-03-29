@@ -2,6 +2,17 @@ const http = require('http');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 
+
+let recursos = {
+  mascotas: [
+    {tpo: "Perro", nombre: "Firulais", dueño:"Jhon"},
+    {tpo: "Perro", nombre: "Firulais", dueño:"Jhon"},
+    {tpo: "Perro", nombre: "Firulais", dueño:"Jhon"},
+    {tpo: "Perro", nombre: "Firulais", dueño:"Jhon"},
+    {tpo: "Perro", nombre: "Firulais", dueño:"Jhon"},
+  ],
+}
+
   const callbackDelServidor = (req, res) => {
    //obtener url desde el objeto request 
     const urlActual = req.url;
@@ -38,6 +49,10 @@ const StringDecoder = require('string_decoder').StringDecoder;
   req.on('end', ()=>{
     buffer += decoder.end();
 
+    if (headers["content-type"] === 'application/json') {
+      buffer=JSON.parse(buffer);
+    }
+
     //Ordenar la data 
     const data = {
       ruta: rutaLimpia,
@@ -46,11 +61,11 @@ const StringDecoder = require('string_decoder').StringDecoder;
       headers,
       payload: buffer
     };
-
+    console.log({data});
     //Elegir el manejador dependiendo de la ruta  //(handler) y asignarle función que el enrutador tiene 
     let handler;
-    if(rutaLimpia && enrutador[rutaLimpia]) {
-      handler = enrutador[rutaLimpia];
+    if(rutaLimpia && enrutador[rutaLimpia] && enrutador[rutaLimpia][metodo]) {
+      handler = enrutador[rutaLimpia][metodo];
     } else {
       handler = enrutador.noEncontrado;
     }
@@ -73,8 +88,14 @@ const enrutador = {
   ruta: (data, callback) => {
     callback(200, {mensaje: 'Esta es /ruta'});
   },
-  usuarios: (data, callback) => {
-    callback(200, [{nombre: 'usuario 1'},{nombre: 'usuario 2'}]);
+  mascotas: {
+    get: (data, callback) => {
+      callback(200, recursos.mascotas);
+    },
+    post: (data, callback) => {
+      recursos.mascotas.push(data.payload);
+      callback(201, data.payload);
+    },
   },
   noEncontrado: (data, callback) => {
     callback(404, {mensaje: 'No encontrado'});
