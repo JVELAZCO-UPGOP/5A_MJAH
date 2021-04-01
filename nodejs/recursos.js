@@ -16,4 +16,13 @@ module.exports = {
 
     ],
 
+    duenos: [
+        { nombre: "Maricruz", apellido: "Olivares", documento: "14785236"},
+        { nombre: "Sonia", apellido: "Rodriguez", documento: "14523678"},
+        { nombre: "Rebeca", apellido: "Sanchez", documento: "36985214"},
+        { nombre: "Abraham", apellido: "Villa", documento: "12324565"},
+        { nombre: "Oscar", apellido: "Palazuelos", documento: "14746325"}
+
+    ],
+
 };
