@@ -1,24 +1,14 @@
-module.export = {
+const recursos = require("./recursos");
+const mascotas = require("./rutas/mascotas");
+const veterinarias = require("./rutas/veterinarias");
+
+module.exports = {
     ruta: (data, callback) => {
-    callback(200, {mensaje: 'Esta es /ruta'});
+        callback(200, { mensaje: 'Esta es la /ruta' });
     },
-    mascotas: {
-    get: (data, callback) => {
-        if (typeof data.indice !=='undefined') {
-        console.log("handler mascotas", {data});
-        if (global.recursos.mascotas[data.indice]) {
-            return callback(200, global.recursos.mascotas[data.indice]);
-        }
-        return callback(404, {mensaje:`Mascota con inidice ${indice} no encontrado`});
-        }
-        callback(200, global.recursos.mascotas);
-    },
-    post: (data, callback) => {
-        global.recursos.mascotas.push(data.payload);
-        callback(201, data.payload);
-    },
-    },
+    mascotas: mascotas(recursos.mascotas),
+    veterinarias: veterinarias(recursos.veterinarias),
     noEncontrado: (data, callback) => {
-    callback(404, {mensaje: 'No encontrado'});
-    }
+        callback(404, { mensaje: 'No encontrado' });
+    },
 };
