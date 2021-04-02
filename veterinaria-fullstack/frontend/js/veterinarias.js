@@ -8,7 +8,7 @@ const indice = document.getElementById('indice');
 const titulo = document.getElementById('exampleModalCenterTitle');
 const modal = document.getElementById('exampleModalCenter');
 
-const url = "http://localhost:5000/veterinarias";
+const url = "https://veterinaria-backend-red.vercel.app/veterinarias";
 let veterinarios = [];
 
 async function listarVeterinarios() {
