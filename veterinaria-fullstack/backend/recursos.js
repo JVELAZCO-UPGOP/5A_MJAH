@@ -33,7 +33,7 @@ module.exports = {
             fechaCreacion: new Date(),
             fechaEdicion: new Date(),
             historia: "",
-            diagnostico: "",
+            diagnostico: "Diagnostico",
         },
 
     ],

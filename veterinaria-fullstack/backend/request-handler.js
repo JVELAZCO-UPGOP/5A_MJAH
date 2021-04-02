@@ -21,12 +21,14 @@ const metodo =  req.method.toLowerCase();
 
 //Dar permisos de CORS escribiendo los headers
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.setHeader("Access-Control-Request-Methods", "OPTIONS,GET,PUT,DELETE,POST");
+//res.setHeader("Access-Control-Request-Methods", "OPTIONS,GET,PUT,DELETE,POST");
+
 res.setHeader("Access-Control-Allow-Headers", "*");
+res.setHeader("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,DELETE,POST");
 
 //dar respuesta inmediata cuando el método sea options
 if (metodo === 'options') {
-   res.writeHead(200);
+   res.writeHead(204);
    res.end();
    return;
 }

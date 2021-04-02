@@ -7,7 +7,7 @@ module.exports = function duenosHandler(duenos) {
                     return callback(200, duenos[data.indice]);
                 }
                 return callback(404, {
-                    mensaje: `Dueno con indice ${data.indice} no encontrado`,
+                    mensaje: `dueno con indice ${data.indice} no encontrado`,
                 });
             }
             callback(200, duenos);
@@ -24,7 +24,7 @@ module.exports = function duenosHandler(duenos) {
                     return callback(200, duenos[data.indice]);
                 }
                 return callback(404, {
-                    mensaje: `Duenos con indice ${data.indice} no encontrado`,
+                    mensaje: `duenos con indice ${data.indice} no encontrado`,
                 });
             }
             callback(404, { mensaje: "Indice No Enviado" });
@@ -35,13 +35,13 @@ module.exports = function duenosHandler(duenos) {
                     duenos = duenos.filter(
                         (_dueno, indice) => indice != data.indice
                     );
-                    return callback(204, { mensaje: 'Elemento con indice ${data.indice} eliminado' });
+                    return callback(204, { mensaje: 'elemento con indice ${data.indice} elimimado' });
                 }
                 return callback(404, {
-                    mensaje: `Dueno con indice ${data.indice} no encontrado`,
+                    mensaje: `duenos con indice ${data.indice} no encontrado`,
                 });
             }
             callback(404, { mensaje: "Indice No Enviado" });
         },
     };
-}; 
+};
