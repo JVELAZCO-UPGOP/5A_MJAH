@@ -10,31 +10,43 @@ const indice = document.getElementById('indice');
 const titulo = document.getElementById('exampleModalCenterTitle');
 const modal = document.getElementById('exampleModalCenter');
 
-let mascotas = [
-    {
-      tipo: "Gato",
-      nombre: "Michi",
-      dueno: "Jhon"
-    }
-  ];
+let mascotas = [];
 
-  function listarMascotas() {
+  async function listarMascotas() {
+    
+    try {
+      const respuesta= await fetch("http://localhost:5000/mascotas");
+      const mascotasDelServer = await respuesta.json();
+      if (Array.isArray(mascotasDelServer) && mascotasDelServer.length > 0) {
+        mascotas=mascotasDelServer;
+      }
+
+
+      
     const htmlMascotas = mascotas.map((mascota, index)=>`<tr>
-        <th scope="row">${index}</th>
-        <td>${mascota.tipo}</td>
-        <td>${mascota.nombre}</td>
-        <td>${mascota.dueno}</td>
-        <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger eliminar"><i class="far fa-trash-alt"></i></button>
-            </div>
-        </td>
-      </tr>`).join("");
-      listaMascotas.innerHTML = htmlMascotas;
-      Array.from(document.getElementsByClassName('editar')).forEach((botonEditar, index)=>botonEditar.onclick = editar(index));
-      Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar, index)=>botonEliminar.onclick = eliminar(index));
-  }
+    <th scope="row">${index}</th>
+    <td>${mascota.tipo}</td>
+    <td>${mascota.nombre}</td>
+    <td>${mascota.dueno}</td>
+    <td>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-danger eliminar"><i class="far fa-trash-alt"></i></button>
+        </div>
+    </td>
+  </tr>`).join("");
+  listaMascotas.innerHTML = htmlMascotas;
+  Array.from(document.getElementsByClassName('editar')).forEach((botonEditar, index)=>botonEditar.onclick = editar(index));
+  Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar, index)=>botonEliminar.onclick = eliminar(index));
+
+
+
+    } catch (error) {
+      throw error;
+    }
+
+  };
+
 
   function enviarDatos(evento) {
       evento.preventDefault();
@@ -52,8 +64,8 @@ let mascotas = [
           mascotas.push(datos);
           break;
       }
-     listarMascotas();
-     resetModal();
+    listarMascotas();
+    resetModal();
   }
 
   function editar(index) {
@@ -138,8 +150,9 @@ let mascotas = [
     
   
   listarMascotas();
+
   
 
- 
+
   form.onsubmit = enviarDatos;
   btnGuardar.onclick = enviarDatos;

@@ -19,6 +19,18 @@ const rutaLimpia = ruta.replace(/^\/+|\/+$/g, '');
    //Obtener el método http
 const metodo =  req.method.toLowerCase();
 
+//Dar permisos de CORS escribiendo los headers
+res.setHeader("Access-Control-Allow-Origin", "*");
+res.setHeader("Access-Control-Request-Methods", "OPTIONS,GET,PUT,DELETE,POST");
+res.setHeader("Access-Control-Allow-Headers", "*");
+
+//dar respuesta inmediata cuando el método sea options
+if (metodo === 'options') {
+   res.writeHead(200);
+   res.end();
+   return;
+}
+
    //Obtener variables del query url
 const { query = {} } = urlParseada;
 
@@ -76,7 +88,7 @@ req.on('end', ()=>{
    if(typeof handler === "function") {
    handler(data, (statusCode = 200, mensaje)=>{
       const respuesta = JSON.stringify(mensaje);
-      res.setHeader("Content-Type", "application/json")
+      res.setHeader("Content-Type", "application/json");
       res.writeHead(statusCode);
          // linea donde se responde a la aplicación cliente
       res.end(respuesta);
