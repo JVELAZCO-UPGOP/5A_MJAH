@@ -1,0 +1,11 @@
+.thead th{
+    color: white;
+    background-color: #343a40;
+    border-color: #454d55;
+}
+.table thead th{
+    padding: .75rem;
+    vertical-align: bottom;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+}
