@@ -1,0 +1,16 @@
+.d-flex {
+    display: flex;
+    justify-content: flex-end;
+}
+.d-flex .form-control {
+    height: 40px;
+    margin-right: 10px;
+}
+.d-flex .btn{
+    color: white;
+    border-color: white;
+}
+.d-flex .btn:hover{
+    color: black;
+    background: white;
+}

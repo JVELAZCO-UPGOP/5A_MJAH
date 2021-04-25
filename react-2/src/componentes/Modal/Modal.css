@@ -54,7 +54,7 @@
     margin-bottom: .5rem;
 }
 label {
-    display: inline-block;
+    display: block;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 18px;
 }
@@ -62,7 +62,7 @@ label {
     margin: 10px;
 }
 .form-control {
-    display: block;
+    /* display: block; */
     width: 93%;
     padding: .375rem .75rem;
     font-size: 1rem;

@@ -1,17 +1,30 @@
-import React from 'react';
+import React from "react";
 import "./Select.css";
 
-function Select({options= [] , nombreCampo = 'vacio'}) {
+function Select({
+    options = [],
+    nombreCampo = 'vacio',
+    onChange = () => { },
+    placeholder,
+    value = "",
+}) {
     return (
-        <>
-        <label for="tipo" class="form-label">Seleccione un tipo de mascota</label>
-        <select className="form-select">
-            <option value="">Seleccione tipo animal {nombreCampo} </option>
-            {options.map(({valor,etiqueta}, index) => 
-            (<option key={`${nombreCampo}-${index}-${valor}`} 
-            value={valor}>{etiqueta}  </option>))}
-        </select>
-        </>
+        <select
+        id={nombreCampo}
+        className="form-select"
+        onChange={onChange}
+        name={nombreCampo}
+        defaultValue={value}
+        >
+        <option value="">Selecciona {placeholder} </option>
+        {options.map(({ valor, etiqueta }, index) =>
+        (<option
+            key={`${nombreCampo}-${index}-${valor}-${etiqueta}`}
+            value={valor}
+        >
+            {etiqueta}
+        </option>))}
+    </select>
     );
 }
 
